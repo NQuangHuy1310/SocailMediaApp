@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 import { Button } from "../ui/button";
@@ -9,7 +10,7 @@ type FileUploaderProps = {
 
 const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
 	const [file, setFile] = useState<File[]>([]);
-	const [fileUrl, setFileUrl] = useState("");
+	const [fileUrl, setFileUrl] = useState(mediaUrl);
 
 	const onDrop = useCallback(
 		(acceptedFiles: FileWithPath[]) => {
@@ -23,11 +24,9 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
 	const { getRootProps, getInputProps } = useDropzone({
 		onDrop,
 		accept: {
-			"image/*": [".png", ".jpg", "jpeg", ".svg"],
+			"image/*": [".png", ".jpeg", ".jpg"],
 		},
 	});
-
-	console.log(fileUrl);
 
 	return (
 		<div {...getRootProps()} className="flex flex-center flex-col bg-dark-3 rounded-xl cursor-pointer">
